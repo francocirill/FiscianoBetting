@@ -11,6 +11,6 @@
     <title>Fratimo</title>
   </head>
   <body>
-  $END$
+sorm
   </body>
 </html>
