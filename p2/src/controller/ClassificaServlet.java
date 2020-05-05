@@ -35,7 +35,7 @@ public class ClassificaServlet extends HttpServlet {
 
         String address;
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher(address);
+                request.getRequestDispatcher("");
         dispatcher.forward(request, response);
 
 

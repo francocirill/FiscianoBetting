@@ -32,7 +32,7 @@ public class PartitaDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }/*
     public Partita doRetrieveById(int id) {
 
         try (Connection con = ConPool.getConnection()) {
@@ -52,7 +52,7 @@ public class PartitaDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
     public List<Partita> doRetrieveByCampionato(String campionato)
     {
         ArrayList<Partita> a=new ArrayList<>();
