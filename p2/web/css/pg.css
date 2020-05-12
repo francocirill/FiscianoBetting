@@ -41,6 +41,19 @@ header {
   background-color: #ddd;
   color: black;
 }
+.side a {
+  color: black;
+  padding: 14px 20px;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+
+/* Change color on hover */
+.side a:hover {
+  background-color: #ddd;
+  color: black;
+}
 
 /* Column container */
 .row {  

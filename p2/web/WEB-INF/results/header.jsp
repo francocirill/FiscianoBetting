@@ -11,7 +11,7 @@
 <head>
     <title>FiscianoBetting</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="./css/pg.css">
+    <link rel="stylesheet" type="text/css" href="./css/pg.css?ts=<?=time()?>&quot"> <!--altrimenti non si aggiorna -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>

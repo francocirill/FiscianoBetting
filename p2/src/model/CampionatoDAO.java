@@ -27,4 +27,5 @@ public class CampionatoDAO {
             throw new RuntimeException(e);
         }
     }
+
 }

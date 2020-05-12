@@ -53,14 +53,14 @@ public class PartitaDAO {
             throw new RuntimeException(e);
         }
     }*/
-    public List<Partita> doRetrieveByCampionato(String campionato)
+    public List<Partita> doRetrieveByCampionato(int campionato)
     {
         ArrayList<Partita> a=new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id,data,ora,idsquadra1,idsquadra2,quota1,quota2,quota3 FROM partita,squadra " +
-                            "WHERE partita.idsquadra1=squadra.id AND squadra.campionato=?");
-            ps.setString(1, campionato);
+                    con.prepareStatement("SELECT partita.id,data,ora,idsquadra1,idsquadra2,quota1,quota2,quota3 FROM partita,squadra " +
+                            "WHERE partita.idsquadra1=squadra.id AND squadra.idcampionato=?");
+            ps.setInt(1, campionato);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Partita p = new Partita();
