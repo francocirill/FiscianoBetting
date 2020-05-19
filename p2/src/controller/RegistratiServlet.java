@@ -10,36 +10,57 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-@WebServlet("/RegistratiServlet")
+@WebServlet("/Registrazione")
 public class RegistratiServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private UtenteDAO utenteDAO = new UtenteDAO();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (request.getSession().getAttribute("utente") != null) {
+            throw new MyServletException("Utente loggato.");
+        }
 
-    }
+        String username = request.getParameter("username");
+        if (!(username != null && username.length() >= 6 && username.matches("^[0-9a-zA-Z]+$"))) {
+            throw new MyServletException("Username non valido.");
+        }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String password = request.getParameter("password");
+        if (!(password != null && password.length() >= 8 && !password.toUpperCase().equals(password)
+                && !password.toLowerCase().equals(password) && password.matches(".*[0-9].*"))) {
+            throw new MyServletException("Password non valida.");
+        }
+
+        String passwordConferma = request.getParameter("passwordConferma");
+        if (!password.equals(passwordConferma)) {
+            throw new MyServletException("Password e conferma differenti.");
+        }
+
+        String nome = request.getParameter("nome");
+        if (!(nome != null && nome.trim().length() > 0 && nome.matches("^[ a-zA-Z\u00C0-\u00ff]+$"))) {
+            throw new MyServletException("Nome non valido.");
+        }
+
+        String email = request.getParameter("email");
+        if (!(email != null && email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w+)+$"))) {
+            throw new MyServletException("Email non valida.");
+        }
 
         Utente utente = new Utente();
-        utente.setUsername(request.getParameter("user"));
-        utente.setPassword(request.getParameter("pass"));
-        utente.setNome(request.getParameter("nome"));
-        utente.setCognome(request.getParameter("cognome"));
-        utente.setEmail(request.getParameter("email"));
-        UtenteDAO service=new UtenteDAO();
-        String address;
-        //salva
-        try {
+        utente.setUsername(username);
+        utente.setPassword(password);
+        utente.setNome(nome);
+        utente.setEmail(email);
+        utenteDAO.doSave(utente);
+        request.getSession().setAttribute("utente", utente);
 
-            service.doSave(utente);
-            request.getSession().removeAttribute("utente");
-            request.getSession().setAttribute("utente", utente);
-            response.sendRedirect(".");
-        }catch (RuntimeException e)
-        {
-            address="/WEB-INF/results/errore.jsp";
-            RequestDispatcher dispatcher =
-                    request.getRequestDispatcher(address);
-            dispatcher.forward(request, response);
-        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/registrazioneSuccesso.jsp");
+        requestDispatcher.forward(request, response);
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+
 }
+

@@ -25,11 +25,12 @@
 
 <!-- Navigation Bar -->
 <div class="navbar">
-    <a href="#">Home</a>
+
+    <a href=".">Home</a>
     <a href="#">Calcio</a>
     <a href="#">Classifiche</a>
-    <a href="#">Registrati</a>
+    <a href="RegistrazioneForm">Registrati</a>
     <a href="#">Chi siamo</a>
-    <a href="#">Area Personale</a>
+    <a href="LoginForm">Area Personale</a>
 </div>
 

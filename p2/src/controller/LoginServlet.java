@@ -11,35 +11,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+    private final UtenteDAO utenteDAO = new UtenteDAO();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Utente utente = null;
+        if (username != null && password != null) {
+            utente = utenteDAO.doRetrieveByUsernamePassword(username, password);
+        }
 
+        if (utente == null) {
+            throw new MyServletException("Username e/o password non validi.");
+        }
+        request.getSession().setAttribute("utente", utente);
+
+        String dest = request.getHeader("referer");
+        if (dest == null || dest.contains("/Login") || dest.trim().isEmpty()) {
+            dest = ".";
+        }
+        response.sendRedirect(dest);
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-             //accedi
-            Utente utente = new Utente();
-            UtenteDAO service=new UtenteDAO();
-            String address;
-            //cerca
-            try {
-                utente=service.doRetrieveByUsernamePassword(request.getParameter("username"),request.getParameter("password"));
-                if(utente!=null) {
-                    request.getSession().removeAttribute("utente");
-                    request.getSession().setAttribute("utente", utente);
-                }
-                response.sendRedirect(".");
-            }catch (RuntimeException e)
-            {
-                address="/WEB-INF/results/errore.jsp";
-                RequestDispatcher dispatcher =
-                        request.getRequestDispatcher(address);
-                dispatcher.forward(request, response);
-            }
-
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 
 }
