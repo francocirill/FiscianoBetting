@@ -1,22 +1,22 @@
 package model;
 
 public class Squadra {
-    private int id,punteggio,golfatti,golsubiti;
-    private String campionato;
+    private int campionato,punteggio,golfatti,golsubiti;
+    private String id;
 
-    public String getCampionato() {
+    public int getCampionato() {
         return campionato;
     }
 
-    public void setCampionato(String campionato) {
+    public void setCampionato(int campionato) {
         this.campionato = campionato;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

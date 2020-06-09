@@ -9,10 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>FiscianoBetting</title>
+    <title>FiscianoBetting - ${param.pageTitle}</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="./css/pg.css?ts=<?=time()?>&quot"> <!--altrimenti non si aggiorna -->
+    <link rel="stylesheet" type="text/css" href="./css/dropdown.css?ts=<?=time()?>&quot">
+    <link rel="stylesheet" type="text/css" href="./css/partite.css?ts=<?=time()?>&quot">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/ricerca.js"></script>
+
 </head>
 <body>
 
@@ -23,14 +27,31 @@
     <p>Tutti i migliori eventi <b>sportivi</b></p>
 </header>
 
-<!-- Navigation Bar -->
-<div class="navbar">
-
-    <a href=".">Home</a>
-    <a href="#">Calcio</a>
-    <a href="#">Classifiche</a>
-    <a href="RegistrazioneForm">Registrati</a>
-    <a href="#">Chi siamo</a>
-    <a href="LoginForm">Area Personale</a>
-</div>
+<ul>
+    <li><a href=".">Home</a></li>
+    <li><a href="#">Calcio</a></li>
+    <li><a href="#">Classifiche</a></li>
+    <li><a href="RegistrazioneForm">Registrati</a></li>
+    <li><a href="#">Chi siamo</a></li>
+    <li class="dropdown">
+        <a href="LoginForm" class="dropbtn">Area Personale</a>
+        <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <form action="Login" method="post">
+                <label for="username">login</label>
+                <input type="text" id="username" name="username">
+                <label for="password">password</label>
+                <input type="password" id="password" name="password">
+                <input type="submit">
+            </form>
+        </div>
+    </li>
+    <li class="ricerca">
+        <form action="Ricerca" method="get">
+            <input class="ricerca" type="text" name="q" list="ricerca-datalist" placeholder="Ricerca" onkeyup="" />
+            <datalist id="ricerca-datalist"></datalist>
+        </form>
+    </li>
+</ul>
 

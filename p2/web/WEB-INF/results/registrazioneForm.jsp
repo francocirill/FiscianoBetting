@@ -4,6 +4,14 @@
 <jsp:include page="header.jsp">
     <jsp:param name="pageTitle" value="Registrazione utente"/>
 </jsp:include>
+<div class="row">
+    <div class="side">
+        <h2>Campionati</h2>
+        <c:forEach items="${campionati}" var="campionato">
+            <a href="CampionatoServlet?id=<c:out value="${campionato.id}"/>"><c:out
+                    value="${campionato.nome}" /></a>
+        </c:forEach>
+    </div>
 <div class="main">
 <section>
     <h1>Registrazione utente</h1>
@@ -22,6 +30,7 @@
         <input id="registrami" type="submit" value="Registrami" disabled><span id="registramimessaggio"></span>
     </form>
 </section>
+</div>
 </div>
 <script>
     var borderOk = '2px solid #080';

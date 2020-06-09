@@ -6,11 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!-- Footer -->
+
 <footer>
     <h2>Segui i creatori sulle loro pagine social</h2>
     <p>Il malese</p>
-    <p>Franlean</p>
+    <p>Franklean</p>
 </footer>
+
 
 </body>
 </html>

@@ -18,11 +18,11 @@ public class SquadraDAO {
             Squadra p = new Squadra();
             while (rs.next()) {
 
-                p.setId(rs.getInt(1));
+                p.setId(rs.getString(1));
                 p.setPunteggio(rs.getInt(2));
                 p.setGolfatti(rs.getInt(3));
                 p.setGolsubiti(rs.getInt(4));
-                p.setCampionato(rs.getString(5));
+                p.setCampionato(rs.getInt(5));
                 a.add(p);
 
             }

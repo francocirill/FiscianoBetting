@@ -21,8 +21,8 @@ public class PartitaDAO {
                 p.setId(rs.getInt(1));
                 p.setData(rs.getString(2));
                 p.setOra(rs.getString(3));
-                p.setIdsquadra1(rs.getInt(4));
-                p.setIdsquadra2(rs.getInt(5));
+                p.setIdsquadra1(rs.getString(4));
+                p.setIdsquadra2(rs.getString(5));
                 p.setQuota1(rs.getDouble(6));
                 p.setQuota2(rs.getDouble(7));
                 p.setQuota3(rs.getDouble(8));
@@ -67,8 +67,8 @@ public class PartitaDAO {
                 p.setId(rs.getInt(1));
                 p.setData(rs.getString(2));
                 p.setOra(rs.getString(3));
-                p.setIdsquadra1(rs.getInt(4));
-                p.setIdsquadra2(rs.getInt(5));
+                p.setIdsquadra1(rs.getString(4));
+                p.setIdsquadra2(rs.getString(5));
                 p.setQuota1(rs.getDouble(6));
                 p.setQuota2(rs.getDouble(7));
                 p.setQuota3(rs.getDouble(8));
@@ -79,6 +79,7 @@ public class PartitaDAO {
             throw new RuntimeException(e);
         }
     }
+    /*
     public ArrayList<Integer> findProdotti(int id) {
 
         ArrayList<Integer> p=new ArrayList<>();
@@ -93,6 +94,34 @@ public class PartitaDAO {
 
             }
             return p;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+     */
+    public List<Partita> doRetrieveBySquadre(String against, int offset, int limit) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, data, ora, idsquadra1,idsquadra2,quota1,quota2,quota3 FROM partita WHERE MATCH(idsquadra1,idsquadra2) AGAINST(? IN BOOLEAN MODE) LIMIT ?, ?");
+            ps.setString(1, against);
+            ps.setInt(2, offset);
+            ps.setInt(3, limit);
+            ArrayList<Partita> partite = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Partita p = new Partita();
+                p.setId(rs.getInt(1));
+                p.setData(rs.getString(2));
+                p.setOra(rs.getString(3));
+                p.setIdsquadra1(rs.getString(4));
+                p.setIdsquadra2(rs.getString(5));
+                p.setQuota1(rs.getDouble(6));
+                p.setQuota2(rs.getDouble(7));
+                p.setQuota3(rs.getDouble(8));
+                partite.add(p);
+            }
+            return partite;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

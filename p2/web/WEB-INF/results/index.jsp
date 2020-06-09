@@ -20,18 +20,41 @@
   </div>
   <div class="main">
     <h2>Eventi </h2>
+    <% /*
     <c:forEach items="${partite}" var="partita">
       <form action="carrello" method="post">
         ${partita.idsquadra1},${partita.idsquadra2},${partita.data},${partita.ora},
             ${partita.quota1}
-        <input type="submit" name="Quota1" value="Quota1">
+        <input class="quota" type="submit" name="Quota1" value="Quota1">
             ${partita.quota2}
-        <input type="submit" name="Quota2" value="Quota2">
+        <input class="quota" type="submit" name="Quota2" value="Quota2">
             ${partita.quota3}
-        <input type="submit" name="Quota3" value="Quota3">
+        <input class="quota" type="submit" name="Quota3" value="Quota3">
         <input type="hidden" value="${partita.id}">
-    </c:forEach>
-
+    </c:forEach>*/%>
+    <table id="partite">
+      <tr>
+        <th>Squadra1</th>
+        <th>Squadra2</th>
+        <th>Data</th>
+        <th>Ora</th>
+        <th>1</th>
+        <th>X</th>
+        <th>2</th>
+      </tr>
+      <c:forEach items="${partite}" var="partita">
+      <tr>
+        <td>${partita.idsquadra1}</td>
+        <td>${partita.idsquadra2}</td>
+        <td>${partita.data}</td>
+        <td>${partita.ora}</td>
+        <td>${partita.quota1}</td>
+        <td>${partita.quota2}</td>
+        <td>${partita.quota3}</td>
+      </tr>
+      </c:forEach>
+    </table>
   </div>
 </div>
+
 <jsp:include page="footer.jsp"/>

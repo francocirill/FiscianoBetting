@@ -1,10 +1,11 @@
 package model;
 
 public class Partita {
-    private int id,idsquadra1,idsquadra2;
-    private String data,ora;
+    private int id;
+    private String data,ora,idsquadra1,idsquadra2;
     private double quota1;
     private double quota2;
+    private double quota3;
 
     public int getId() {
         return id;
@@ -14,19 +15,19 @@ public class Partita {
         this.id = id;
     }
 
-    public int getIdsquadra1() {
+    public String getIdsquadra1() {
         return idsquadra1;
     }
 
-    public void setIdsquadra1(int idsquadra1) {
+    public void setIdsquadra1(String idsquadra1) {
         this.idsquadra1 = idsquadra1;
     }
 
-    public int getIdsquadra2() {
+    public String getIdsquadra2() {
         return idsquadra2;
     }
 
-    public void setIdsquadra2(int idsquadra2) {
+    public void setIdsquadra2(String idsquadra2) {
         this.idsquadra2 = idsquadra2;
     }
 
@@ -70,5 +71,5 @@ public class Partita {
         this.quota3 = quota3;
     }
 
-    private double quota3;
+
 }
