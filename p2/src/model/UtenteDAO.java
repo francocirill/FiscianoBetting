@@ -95,4 +95,20 @@ public class UtenteDAO {
             throw new RuntimeException(e);
         }
     }
+    public void doUpdate(Utente utente) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "Update utente set username=?,passwordhash=?,nome=?,email=? WHERE id=?");
+            ps.setString(1, utente.getUsername());
+            ps.setString(2, utente.getPasswordhash());
+            ps.setString(3, utente.getNome());
+            ps.setString(4, utente.getEmail());
+            ps.setInt(5, utente.getId());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("Update error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

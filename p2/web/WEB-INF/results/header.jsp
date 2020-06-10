@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/ricerca.js"></script>
 
+
 </head>
 <body>
 
@@ -28,7 +29,7 @@
 </header>
 
 <ul>
-    <li><a href=".">Home</a></li>
+    <li><a  href=".">Home</a></li>
     <li><a href="#">Calcio</a></li>
     <li><a href="#">Classifiche</a></li>
     <li><a href="RegistrazioneForm">Registrati</a></li>
@@ -36,15 +37,36 @@
     <li class="dropdown">
         <a href="LoginForm" class="dropbtn">Area Personale</a>
         <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <form action="Login" method="post">
-                <label for="username">login</label>
-                <input type="text" id="username" name="username">
-                <label for="password">password</label>
-                <input type="password" id="password" name="password">
-                <input type="submit">
-            </form>
+            <c:choose>
+                <c:when test="${utente == null}">
+                    <form action="Login" method="post">
+                        <label for="username">login</label>
+                        <input type="text" id="username" name="username">
+                        <label for="password">password</label>
+                        <input type="password" id="password" name="password">
+                        <input type="submit">
+                    </form>
+                </c:when>
+                <c:otherwise>
+
+                    <c:if test="${utente.admin}">
+                        <div class="log">Admin ${utente.nome}</div>
+                        <a href="AdminPartita">Aggiungi Partita</a>
+                        <a href="todo">Schedine</a>
+                        <a href="AdminUtenti">Utenti</a>
+                        <hr style="margin:0px;">
+                    </c:if>
+                    <c:if test="!${utente.admin}">
+                        <div class="log">Benvenuto ${utente.nome}</div>
+                    </c:if>
+                    <a href="ProfiloServlet">Profilo</a>
+                    <a href="todo">Le mie schedine</a>
+                    <form action="Logout">
+                        <input type="submit" value="Logout">
+                    </form>
+                </c:otherwise>
+            </c:choose>
+
         </div>
     </li>
     <li class="ricerca">

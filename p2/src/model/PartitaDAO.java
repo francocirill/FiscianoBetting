@@ -85,7 +85,7 @@ public class PartitaDAO {
         ArrayList<Integer> p=new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT idprodotto FROM prodottoPartita WHERE idPartita="+id);
+                    con.prepareStatement("SELECT idpartita FROM partitaPartita WHERE idPartita="+id);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -126,5 +126,34 @@ public class PartitaDAO {
             throw new RuntimeException(e);
         }
     }
+    public void doUpdate(Double q1,Double q2,Double q3,int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con
+                    .prepareStatement("UPDATE partita SET quota1=?, quota2=?, quota3=? WHERE id=?");
+            ps.setDouble(1,q1);
+            ps.setDouble(2,q2);
+            ps.setDouble(3, q3);
+            ps.setInt(4, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doDelete(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM partita WHERE id=?");
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("DELETE error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
