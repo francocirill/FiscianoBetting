@@ -51,7 +51,7 @@
 
                     <c:if test="${utente.admin}">
                         <div class="log">Admin ${utente.nome}</div>
-                        <a href="AdminPartita">Aggiungi Partita</a>
+                        <a href="AdminPartitaForm">Aggiungi Partita</a>
                         <a href="todo">Schedine</a>
                         <a href="AdminUtenti">Utenti</a>
                         <hr style="margin:0px;">

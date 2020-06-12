@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,6 +147,28 @@ public class PartitaDAO {
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("DELETE error.");
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void doSave(Partita partita) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "INSERT INTO partita(data, ora, idsquadra1, idsquadra2, quota1,quota2,quota3) VALUES(?,?,?,?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, partita.getData());
+            ps.setString(2, partita.getOra());
+            ps.setString(3, partita.getIdsquadra1());
+            ps.setString(4, partita.getIdsquadra2());
+            ps.setDouble(5, partita.getQuota1());
+            ps.setDouble(6, partita.getQuota2());
+            ps.setDouble(7, partita.getQuota3());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            partita.setId(rs.getInt(1));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

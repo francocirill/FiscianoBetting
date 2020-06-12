@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ClassificaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SquadraDAO squadradao= new SquadraDAO();
-
+/*
         ArrayList<Squadra> seriea=squadradao.doRetrieveByCampionato("SerieA");
         ArrayList<Squadra> serieb=squadradao.doRetrieveByCampionato("SerieB");
         ArrayList<Squadra> premier=squadradao.doRetrieveByCampionato("PremierLeague");
@@ -32,7 +32,7 @@ public class ClassificaServlet extends HttpServlet {
         request.setAttribute("Bundesliga",bundesliga);
         request.setAttribute("Ligue1",ligue1);
         request.setAttribute("Eredivise",eredivise);
-
+*/
         String address;
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("");

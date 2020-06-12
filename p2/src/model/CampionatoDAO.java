@@ -27,5 +27,25 @@ public class CampionatoDAO {
             throw new RuntimeException(e);
         }
     }
+    public Campionato doRetrieveById(String nome)
+    {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT id,nome,descrizione FROM campionato WHERE nome=?");
+            ps.setString(1,nome);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Campionato p = new Campionato();
+                p.setId(rs.getInt(1));
+                p.setNome(rs.getString(2));
+                p.setDescrizione(rs.getString(3));
+                return p;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

@@ -20,7 +20,7 @@ public class RegistratiServlet extends HttpServlet {
         }
 
         String username = request.getParameter("username");
-        if (!(username != null && username.length() >= 6 && username.matches("^[0-9a-zA-Z]+$"))) {
+        if (!(username != null && username.length() >= 6 && username.matches("^[0-9a-zA-Z]+$"))) {    //soltanto una parola(prima ed ultima)
             throw new MyServletException("Username non valido.");
         }
 
@@ -36,12 +36,12 @@ public class RegistratiServlet extends HttpServlet {
         }
 
         String nome = request.getParameter("nome");
-        if (!(nome != null && nome.trim().length() > 0 && nome.matches("^[ a-zA-Z\u00C0-\u00ff]+$"))) {
+        if (!(nome != null && nome.trim().length() > 0 && nome.matches("^[ a-zA-Z\u00C0-\u00ff]+$"))) {  //caratteri speciali tabella ascii
             throw new MyServletException("Nome non valido.");
         }
 
         String email = request.getParameter("email");
-        if (!(email != null && email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w+)+$"))) {
+        if (!(email != null && email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w+)+$"))) {    //parola+quante altre parole vuoi+@+parola+ altre parole+parola
             throw new MyServletException("Email non valida.");
         }
 
