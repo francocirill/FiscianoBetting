@@ -14,36 +14,65 @@
     </div>
     <div class="main">
         <section>
-            <h1>Aggiungi partita</h1>
-            <h5>Riempi tutti i campi</h5>
-            <h5>${notifica}</h5>
-            <form name="partita" action="AdminPartita" method="get" onsubmit="return checkSquadre()">
-                <label>Data AAAA-MM-GG</label><br>
-                <input type="text" name="data" ><br>
-                <label>Ora HH:MM:SS</label><br>
-                <input type="text" name="ora" ><br>
-                <label for="camps">Campionato</label><br>
+            <c:choose>
+                <c:when test="${operazione=='aggiungi'}">  <!-- Aggiungi partita-->
+                    <h1>Aggiungi partita</h1>
+                    <h5>Riempi tutti i campi</h5>
+                    <h5>${notifica}</h5>
+                    <form name="partita" action="AdminPartita" method="get" onsubmit="return checkSquadre()">
+                        <label>Data AAAA-MM-GG</label><br>
+                        <input type="text" name="data" ><br>
+                        <label>Ora HH:MM:SS</label><br>
+                        <input type="text" name="ora" ><br>
+                        <label for="camps">Campionato</label><br>
 
-                <select name="camps" id="camps" onchange="loadSquadre(this)">
-                    <option value=""></option>
-                    <c:forEach items="${campionati}" var="campionato">
-                        <option value="${campionato.id}">${campionato.nome}</option>
-                    </c:forEach>
-                </select><br>
-                <label>Squadra1 </label><br>
-                <select name="squadra1" id="squadra1" >
-                </select><br>
-                <label>Squadra2 </label><br>
-                <select name="squadra2" id="squadra2" >
-                </select><br>
-                <label>Quota1 </label><br>
-                <input type="number" name="quota1" min="1.01" step="0.01"><br>
-                <label>Quota2 </label><br>
-                <input type="number" name="quota2" min="1.01" step="0.01"><br>
-                <label>Quota3 </label><br>
-                <input type="number" name="quota3" min="1.01" step="0.01"><br>
-                <input id="Operazione" name="Operazione" type="submit" value="Aggiungi" >
-            </form>
+                        <select name="camps" id="camps" onchange="loadSquadre(this)">
+                            <option value=""></option>
+                            <c:forEach items="${campionati}" var="campionato">
+                                <option value="${campionato.id}">${campionato.nome}</option>
+                            </c:forEach>
+                        </select><br>
+                        <label>Squadra1 </label><br>
+                        <select name="squadra1" id="squadra1" >
+                        </select><br>
+                        <label>Squadra2 </label><br>
+                        <select name="squadra2" id="squadra2" >
+                        </select><br>
+                        <label>Quota1 </label><br>
+                        <input type="number" name="quota1" min="1.01" step="0.01"><br>
+                        <label>Quota2 </label><br>
+                        <input type="number" name="quota2" min="1.01" step="0.01"><br>
+                        <label>Quota3 </label><br>
+                        <input type="number" name="quota3" min="1.01" step="0.01"><br>
+                        <input id="operazione" name="operazione" type="submit" value="aggiungi" >
+                    </form>
+                </c:when>
+                <c:otherwise >
+                    <h1>Modifica/Elimina partita</h1>
+                    <h5>${notifica}</h5>
+                    <c:if test="${partita!=null}">
+                        <form name="partita" action="AdminPartita" method="get" >
+                            <input type="hidden" name="id" value="${partita.id}">
+                            <label>Data AAAA-MM-GG</label><br>
+                            <input type="text" name="data" value="${partita.data}"><br>
+                            <label>Ora HH:MM:SS</label><br>
+                            <input type="text" name="ora" value="${partita.ora}"><br>
+                            <label>Squadra1 ${partita.idsquadra1}</label><br>
+                            <label>Squadra2 ${partita.idsquadra2}</label><br>
+                            <label>Quota1 </label><br>
+                            <input type="number" name="quota1" min="1.01" step="0.01" value="${partita.quota1}"><br>
+                            <label>Quota2 </label><br>
+                            <input type="number" name="quota2" min="1.01" step="0.01" value="${partita.quota2}"><br>
+                            <label>Quota3 </label><br>
+                            <input type="number" name="quota3" min="1.01" step="0.01" value="${partita.quota3}"><br>
+                            <input  name="operazione" type="submit" value="modifica" >
+                            <input  name="operazione" type="submit" value="elimina" >
+                        </form>
+                    </c:if>
+                </c:otherwise>
+
+            </c:choose>
+
         </section>
     </div>
 </div>

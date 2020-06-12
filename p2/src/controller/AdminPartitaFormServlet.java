@@ -20,23 +20,12 @@ public class AdminPartitaFormServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*
-        List<Partita> Seriea=partitaDAO.doRetrieveByCampionato(1);
-        List<Partita> LaLiga=partitaDAO.doRetrieveByCampionato(2);
-        List<Partita> Ligue1=partitaDAO.doRetrieveByCampionato(3);
-        List<Partita> Bundesliga=partitaDAO.doRetrieveByCampionato(4);
-        List<Partita> Premier=partitaDAO.doRetrieveByCampionato(5);
-        List<Partita> Eredivise=partitaDAO.doRetrieveByCampionato(6);
-        List<Partita> Serieb=partitaDAO.doRetrieveByCampionato(7);
-
-        request.setAttribute("SerieA",Seriea);
-        request.setAttribute("SerieB",Serieb);
-        request.setAttribute("Premier League",Premier);
-        request.setAttribute("LaLiga",LaLiga);
-        request.setAttribute("Bundesliga",Bundesliga);
-        request.setAttribute("Ligue1",Ligue1);
-        request.setAttribute("Eredivise",Eredivise);
-        */
+        String operazione=request.getParameter("operazione");   //operazione
+        request.setAttribute("operazione", operazione);
+        int id= Integer.parseInt(request.getParameter("id"));
+        PartitaDAO partitaDAO=new PartitaDAO();
+        Partita p= partitaDAO.doRetrieveById(id);    //partita da modificare o eliminare
+        request.setAttribute("partita",p);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/adminPartita.jsp");
         requestDispatcher.forward(request, response);
     }

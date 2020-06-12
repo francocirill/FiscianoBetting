@@ -19,19 +19,12 @@ public class AdminPartitaServlet extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MyServletException.checkAdmin(request);
-/*
-        String idstr = request.getParameter("id");
-        if (idstr != null) {
-            if (request.getParameter("rimuovi") != null) {
-                partitaDAO.doDelete(Integer.parseInt(idstr));
-                request.setAttribute("notifica", "partita rimosso con successo.");
-            } else {
-*/
+
+                if(request.getParameter("operazione").equals("aggiungi")){
                 Double quota1 = Double.parseDouble(request.getParameter("quota1"));
                 Double quota2 = Double.parseDouble(request.getParameter("quota2"));
                 Double quota3 = Double.parseDouble(request.getParameter("quota3"));
-                if (!quota1.isNaN() && !quota2.isNaN() && !quota3.isNaN()) {
-                   // if (idstr.isEmpty()) { // aggiunta nuovo partita
+                    if (!quota1.isNaN() && !quota2.isNaN() && !quota3.isNaN() && !request.getParameter("squadra1").equals(request.getParameter("squadra2"))) {
                         Partita partita = new Partita();
                         partita.setQuota1(quota1);
                         partita.setQuota2(quota2);
@@ -41,16 +34,36 @@ public class AdminPartitaServlet extends HttpServlet {
                         partita.setData(request.getParameter("data"));
                         partita.setOra(request.getParameter("ora"));
                         partitaDAO.doSave(partita);
+                        request.setAttribute("operazione","aggiungi");
                         request.setAttribute("notifica", "Prodotto aggiunto con successo.");
-                        /*
-                    } else {
-                        // modifica partita
-                        partitaDAO.doUpdate(quota1, quota2, quota3, Integer.parseInt(idstr));
+                    }
+            }
+                else if(request.getParameter("operazione").equals("modifica"))
+                {
+                    Double quota1 = Double.parseDouble(request.getParameter("quota1"));
+                    Double quota2 = Double.parseDouble(request.getParameter("quota2"));
+                    Double quota3 = Double.parseDouble(request.getParameter("quota3"));
+                    int id=Integer.parseInt(request.getParameter("id"));
+                    if (!quota1.isNaN() && !quota2.isNaN() && !quota3.isNaN() ) {
+                        Partita partita = new Partita();
+                        partita.setId(id);
+                        partita.setQuota1(quota1);
+                        partita.setQuota2(quota2);
+                        partita.setQuota3(quota3);
+                        partita.setData(request.getParameter("data"));
+                        partita.setOra(request.getParameter("ora"));
+                        partitaDAO.doUpdate(partita);
+                        request.setAttribute("operazione","modifica");
+                        request.setAttribute("partita",partita);
                         request.setAttribute("notifica", "partita modificato con successo.");
                     }
                 }
-            }*/
-            }
+                else if(request.getParameter("operazione").equals("elimina"))
+                {
+                    request.setAttribute("operazione","elimina");
+                    partitaDAO.doDelete(Integer.parseInt(request.getParameter("id")));
+                    request.setAttribute("notifica", "partita rimosso con successo.");
+                }
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/adminPartita.jsp");
             requestDispatcher.forward(request, response);

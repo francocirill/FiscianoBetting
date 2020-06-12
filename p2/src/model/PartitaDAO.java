@@ -29,27 +29,33 @@ public class PartitaDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }/*
+    }
     public Partita doRetrieveById(int id) {
 
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT id,nome,descrizione FROM Partita WHERE id=?");
+                    con.prepareStatement("SELECT id,data,ora,idsquadra1,idsquadra2,quota1,quota2,quota3 FROM Partita WHERE id=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             Partita p = new Partita();
             if (rs.next()) {
 
                 p.setId(rs.getInt(1));
-                p.setNome(rs.getString(2));
-                p.setDescrizione(rs.getString(3));
+                p.setId(rs.getInt(1));
+                p.setData(rs.getString(2));
+                p.setOra(rs.getString(3));
+                p.setIdsquadra1(rs.getString(4));
+                p.setIdsquadra2(rs.getString(5));
+                p.setQuota1(rs.getDouble(6));
+                p.setQuota2(rs.getDouble(7));
+                p.setQuota3(rs.getDouble(8));
 
             }
             return p;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
     public List<Partita> doRetrieveByCampionato(int campionato)
     {
         ArrayList<Partita> a=new ArrayList<>();
@@ -123,14 +129,16 @@ public class PartitaDAO {
             throw new RuntimeException(e);
         }
     }
-    public void doUpdate(Double q1,Double q2,Double q3,int id) {
+    public void doUpdate(Partita p) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con
-                    .prepareStatement("UPDATE partita SET quota1=?, quota2=?, quota3=? WHERE id=?");
-            ps.setDouble(1,q1);
-            ps.setDouble(2,q2);
-            ps.setDouble(3, q3);
-            ps.setInt(4, id);
+                    .prepareStatement("UPDATE partita SET data=?, ora=?, quota1=?, quota2=?, quota3=? WHERE id=?");
+            ps.setString(1,p.getData());
+            ps.setString(2,p.getOra());
+            ps.setDouble(3,p.getQuota1());
+            ps.setDouble(4,p.getQuota2());
+            ps.setDouble(5, p.getQuota3());
+            ps.setInt(6, p.getId());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("UPDATE error.");
             }
