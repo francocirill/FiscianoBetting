@@ -2,7 +2,7 @@
          pageEncoding="UTF-8"%><%@taglib prefix="c"
                                          uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp">
-    <jsp:param name="pageTitle" value="Registrazione utente"/>
+    <jsp:param name="pageTitle" value="Azioni Partita"/>
 </jsp:include>
 <div class="row">
     <div class="side">

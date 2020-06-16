@@ -15,28 +15,15 @@ import java.util.ArrayList;
 @WebServlet("/ClassificaServlet")
 public class ClassificaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SquadraDAO squadradao= new SquadraDAO();
-/*
-        ArrayList<Squadra> seriea=squadradao.doRetrieveByCampionato("SerieA");
-        ArrayList<Squadra> serieb=squadradao.doRetrieveByCampionato("SerieB");
-        ArrayList<Squadra> premier=squadradao.doRetrieveByCampionato("PremierLeague");
-        ArrayList<Squadra> liga=squadradao.doRetrieveByCampionato("LaLiga");
-        ArrayList<Squadra> bundesliga=squadradao.doRetrieveByCampionato("Bundesliga");
-        ArrayList<Squadra> ligue1=squadradao.doRetrieveByCampionato("Ligue1");
-        ArrayList<Squadra> eredivise=squadradao.doRetrieveByCampionato("Eredivise");
+        SquadraDAO squadraDAO= new SquadraDAO();
+        int id=Integer.parseInt(request.getParameter("id"));
+        ArrayList<Squadra> classifica=squadraDAO.doRetrieveByCampionato(id);
+        request.setAttribute("classifica",classifica);
+        String nome=request.getParameter("nome");
+        request.setAttribute("nome",nome);
 
-        request.setAttribute("SerieA",seriea);
-        request.setAttribute("SerieB",serieb);
-        request.setAttribute("Premierleague",premier);
-        request.setAttribute("LaLiga",liga);
-        request.setAttribute("Bundesliga",bundesliga);
-        request.setAttribute("Ligue1",ligue1);
-        request.setAttribute("Eredivise",eredivise);
-*/
-        String address;
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("");
-        dispatcher.forward(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/classifica.jsp");
+        requestDispatcher.forward(request, response);
 
 
 

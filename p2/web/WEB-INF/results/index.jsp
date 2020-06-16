@@ -1,3 +1,5 @@
+<%@ page import="model.Scommessa" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -48,9 +50,9 @@
         <td>${partita.idsquadra2}</td>
         <td>${partita.data}</td>
         <td>${partita.ora}</td>
-        <td>${partita.quota1}</td>
-        <td>${partita.quota2}</td>
-        <td>${partita.quota3}</td>
+        <td id="${partita.id}_1" onclick="schedina(this,'${partita.id}','1')">${partita.quota1}</td>
+        <td id="${partita.id}_2" onclick="schedina(this,'${partita.id}','2')">${partita.quota2}</td>
+        <td id="${partita.id}_3" onclick="schedina(this,'${partita.id}','3')">${partita.quota3}</td>
         <c:if test="${utente.admin}">
           <td>
             <a href="AdminPartitaForm?operazione=modifica&id=${partita.id}">Modifica</a>
@@ -64,5 +66,56 @@
     </table>
   </div>
 </div>
+<script>
 
+  function colora() {
+    //se è presente nella  schedina della sessione imposta arancione
+    //rimuove tutti i colori
+    var arr=document.getElementsByTagName("td");
+    for (i = 0; i < arr.length; i++) {
+      arr[i].removeAttribute("style");
+    }
+
+
+    //scorre l'array e colora le scommesse della sessione
+    <%
+      List<Scommessa> sched = (List<Scommessa>) session.getAttribute("schedina");
+    %>
+    <% if(sched!=null){
+        for(Scommessa scommessa : sched){%>
+          document.getElementById(<%=scommessa.getP().getId()%>+"_"+<%=scommessa.getEsito()%>).style["background-color"]='orange';
+    <%}%><%}%>
+
+
+  };
+  function schedina(td,id,esito) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+      //aggiorna colori
+        if(esito!='1')
+          document.getElementById(id+"_"+"1").removeAttribute("style");
+        if(esito!='2')
+          document.getElementById(id+"_"+"2").removeAttribute("style");
+        if(esito!='3')
+          document.getElementById(id+"_"+"3").removeAttribute("style");
+        if(td.style["background-color"]=='orange')
+        {
+          td.removeAttribute("style");
+        }
+        else
+        {
+          td.style["background-color"]='orange';
+        }
+      }
+    };
+    xhttp.open("GET", "SchedinaAjax?id="+id+"&esito="+esito, true); //salva scommessa nella sessione
+    xhttp.send();
+
+
+  };
+  //aggiorna colori quando carica la pagina
+  document.getElementsByTagName("body")[0].onload = colora();
+
+</script>
 <jsp:include page="footer.jsp"/>

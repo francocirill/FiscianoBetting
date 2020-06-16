@@ -53,6 +53,14 @@
                     <td>${partita.quota1}</td>
                     <td>${partita.quota2}</td>
                     <td>${partita.quota3}</td>
+                    <c:if test="${utente.admin}">
+                        <td>
+                            <a href="AdminPartitaForm?operazione=modifica&id=${partita.id}">Modifica</a>
+                        </td>
+                        <td>
+                            <a href="AdminPartitaForm?operazione=elimina&id=${partita.id}">Elimina</a>
+                        </td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>

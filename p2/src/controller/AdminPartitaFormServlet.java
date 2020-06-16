@@ -20,12 +20,18 @@ public class AdminPartitaFormServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String operazione=request.getParameter("operazione");   //operazione
         request.setAttribute("operazione", operazione);
-        int id= Integer.parseInt(request.getParameter("id"));
-        PartitaDAO partitaDAO=new PartitaDAO();
-        Partita p= partitaDAO.doRetrieveById(id);    //partita da modificare o eliminare
-        request.setAttribute("partita",p);
+        if(request.getParameter("operazione")==null)
+            request.setAttribute("operazione", "aggiungi");
+        int id;
+        if(request.getParameter("id")!=null) {
+            id = Integer.parseInt(request.getParameter("id"));
+            PartitaDAO partitaDAO = new PartitaDAO();
+            Partita p = partitaDAO.doRetrieveById(id);    //partita da modificare o eliminare
+            request.setAttribute("partita", p);
+        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/adminPartita.jsp");
         requestDispatcher.forward(request, response);
     }

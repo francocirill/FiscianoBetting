@@ -30,8 +30,15 @@
 
 <ul>
     <li><a  href=".">Home</a></li>
-    <li><a href="#">Calcio</a></li>
-    <li><a href="#">Classifiche</a></li>
+    <li><a href="SchedinaBott">Schedina</a></li>
+    <li class="dropdown">
+        <a href="" class="dropbtn">Classifiche</a>
+        <div class="dropdown-content">
+            <c:forEach items="${campionati}" var="campionato">
+                <a href="ClassificaServlet?id=${campionato.id}&nome=${campionato.nome}">${campionato.nome}</a>
+            </c:forEach>
+        </div>
+    </li>
     <li><a href="RegistrazioneForm">Registrati</a></li>
     <li><a href="#">Chi siamo</a></li>
     <li class="dropdown">
