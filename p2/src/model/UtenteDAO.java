@@ -74,6 +74,27 @@ public class UtenteDAO {
             throw new RuntimeException(e);
         }
     }
+    public Utente doRetrieveByEmail(String email) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, username, passwordhash, nome, email, admin FROM utente WHERE email=?");
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Utente p = new Utente();
+                p.setId(rs.getInt(1));
+                p.setUsername(rs.getString(2));
+                p.setPasswordhash(rs.getString(3));
+                p.setNome(rs.getString(4));
+                p.setEmail(rs.getString(5));
+                p.setAdmin(rs.getBoolean(6));
+                return p;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void doSave(Utente utente) {
         try (Connection con = ConPool.getConnection()) {

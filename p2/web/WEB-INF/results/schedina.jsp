@@ -22,8 +22,10 @@
     </div>
     <div class="main">
         <h2>Schedina </h2>
+        <h3>${notifica}</h3>
 
 
+        <c:if test="${schedina.size() gt 0}">
         <table id="partite">
             <tr>
                 <th>Squadra1</th>
@@ -33,7 +35,7 @@
                 <th>Esito</th>
                 <th>Quota</th>
             </tr>
-            <c:set var="totquote" value="1"></c:set>
+            <c:set var="totquote" value="1" scope="page"></c:set>
             <c:forEach items="${schedina}" var="scommessa">
                 <tr>
                     <td>${scommessa.p.idsquadra1}</td>
@@ -63,11 +65,15 @@
             </c:forEach>
         </table>
         <form method="get" action="ScommettiSchedina">
-        Importo <input id="importo" type="number" value="2" min="2" onchange="calcolaPotenziale()">
+        Importo <input id="importo" name="importo" type="number" value="2" min="2" onchange="calcolaPotenziale()">
             <input type="submit" value="Scommetti">
         </form>
 
         <span id="vincita"></span>
+        </c:if>
+        <c:if test="${schedina.size()==0}">
+            <span>Schedina vuota</span>
+        </c:if>
     </div>
 </div>
 <script>
@@ -83,13 +89,6 @@
         else{
             document.getElementById("vincita").innerHTML="Valore minimo 2 euro";
         }
-        if(quote==1)
-        {
-            document.getElementById("vincita").innerHTML="Schedina vuota";
-        }
-
-
-
     };
     document.getElementsByTagName("body")[0].onload = calcolaPotenziale();
 </script>

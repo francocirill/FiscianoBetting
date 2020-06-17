@@ -23,7 +23,10 @@ public class SchedinaBottServlet extends HttpServlet {
         HttpSession session=request.getSession();
         ArrayList<Scommessa> schedina;
         if(session.getAttribute("schedina")==null) { //schedina non ancora presente la creo
-            schedina = new ArrayList<Scommessa>();}
+            schedina = new ArrayList<Scommessa>();
+            session.setAttribute("schedina",schedina);
+        }
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/schedina.jsp");
         requestDispatcher.forward(request, response);
     }

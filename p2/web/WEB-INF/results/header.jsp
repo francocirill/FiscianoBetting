@@ -67,7 +67,7 @@
                         <div class="log">Benvenuto ${utente.nome}</div>
                     </c:if>
                     <a href="ProfiloServlet">Profilo</a>
-                    <a href="todo">Le mie schedine</a>
+                    <a href="MostraSchedine">Le mie schedine</a>
                     <form action="Logout">
                         <input type="submit" value="Logout">
                     </form>
@@ -76,11 +76,15 @@
 
         </div>
     </li>
+    <%/*
     <li class="ricerca">
         <form action="Ricerca" method="get">
             <input class="ricerca" type="text" name="q" list="ricerca-datalist" placeholder="Ricerca" onkeyup="" />
             <datalist id="ricerca-datalist"></datalist>
         </form>
     </li>
+    */%>
+    <li><a href="Ricerca">Ricerca</a></li>
+
 </ul>
 

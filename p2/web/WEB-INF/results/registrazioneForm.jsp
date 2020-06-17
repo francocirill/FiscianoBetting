@@ -25,7 +25,7 @@
         <input type="password" name="passwordConferma" oninput="validaPassword()"><br>
         <label>Nome (solo lettere e spazi)</label><br>
         <input type="text" name="nome" oninput="validaNome()"><br>
-        <label>Email (<b>TODO:</b> diversa da quella di utenti esistenti)</label><br>
+        <label>Email (diversa da quella di utenti esistenti)</label><br>
         <input type="text" name="email" oninput="validaEmail()"><br>
         <input id="registrami" type="submit" value="Registrami" disabled><span id="registramimessaggio"></span>
     </form>
@@ -105,13 +105,28 @@
     function validaEmail() {
         var input = document.forms['registrazione']['email'];
         if (input.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)+$/)) {
-            input.style.border = borderOk;
-            emailOk = true;
+            // verifica se esiste un utente con la stessa email
+            var xmlHttpReq = new XMLHttpRequest();
+            xmlHttpReq.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200
+                    && this.responseText == '<ok/>') {
+                    input.style.border = borderOk;
+                    emailOk = true;
+                } else {
+                    input.style.border = borderNo;
+                    emailOk = false;
+                }
+                cambiaStatoRegistrami();
+            }
+            xmlHttpReq.open("GET", "VerificaEmail?email="
+                + encodeURIComponent(input.value), true);
+            xmlHttpReq.send();
         } else {
             input.style.border = borderNo;
             emailOk = false;
+            cambiaStatoRegistrami();
         }
-        cambiaStatoRegistrami();
+
     }
 
     function cambiaStatoRegistrami() {

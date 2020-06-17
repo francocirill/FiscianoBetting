@@ -103,13 +103,11 @@ public class PartitaDAO {
     }
 
      */
-    public List<Partita> doRetrieveBySquadre(String against, int offset, int limit) {
+    public List<Partita> doRetrieveBySquadre(String against) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "SELECT id, data, ora, idsquadra1,idsquadra2,quota1,quota2,quota3 FROM partita WHERE MATCH(idsquadra1,idsquadra2) AGAINST(? IN BOOLEAN MODE) LIMIT ?, ?");
+                    "SELECT id, data, ora, idsquadra1,idsquadra2,quota1,quota2,quota3 FROM partita WHERE MATCH(idsquadra1,idsquadra2) AGAINST(? IN BOOLEAN MODE)");
             ps.setString(1, against);
-            ps.setInt(2, offset);
-            ps.setInt(3, limit);
             ArrayList<Partita> partite = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
