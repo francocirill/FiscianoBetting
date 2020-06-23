@@ -9,7 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:include page="header.jsp">
-    <jsp:param name="pageTitle" value="${ricerca}"/>
+    <jsp:param name="pageTitle" value="Ricerca ${ricerca}"/>
 </jsp:include>
 <!-- The flexible grid (content) -->
 <div class="row">

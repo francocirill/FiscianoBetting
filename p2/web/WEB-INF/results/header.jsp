@@ -26,6 +26,9 @@
 <header>
     <h1>FiscianoBetting</h1>
     <p>Tutti i migliori eventi <b>sportivi</b></p>
+    <c:if test="${utente != null}">
+        <p style="float:right;padding-right:25px;">Benvenuto ${utente.nome}</p>
+    </c:if>
 </header>
 
 <ul>
@@ -59,7 +62,7 @@
                     <c:if test="${utente.admin}">
                         <div class="log">Admin ${utente.nome}</div>
                         <a href="AdminPartitaForm">Aggiungi Partita</a>
-                        <a href="todo">Schedine</a>
+                        <a href="AdminSchedine">Schedine</a>
                         <a href="AdminUtenti">Utenti</a>
                         <hr style="margin:0px;">
                     </c:if>

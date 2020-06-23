@@ -23,7 +23,13 @@
     <div class="main">
         <h2>Schedine giocate </h2>
         <c:forEach items="${schedinegiocate}" var="schedina">
-            <pre>Eventi:<br>${schedina.testo}<br>Importo: ${schedina.importo} euro<br>Vincita potenziale: ${schedina.vincita} euro</pre><br>
+            <div style="border: 1px solid black;padding: 10px;">
+                <c:if test="${schedina.username!=null}">
+                    Username: ${schedina.username}
+                </c:if>
+            <pre>Eventi:<br>${schedina.testo}<br>Importo: ${schedina.importo} euro<br>Vincita potenziale: ${schedina.vincita} euro<br>Data: ${schedina.data}<br>Ora: ${schedina.ora}</pre><br>
+            </div>
+
 
 
 

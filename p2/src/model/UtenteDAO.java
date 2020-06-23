@@ -6,12 +6,10 @@ import java.util.List;
 
 public class UtenteDAO {
 
-    public List<Utente> doRetrieveAll(int offset, int limit) {
+    public ArrayList<Utente> doRetrieveAll() {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con
-                    .prepareStatement("SELECT id, username, passwordhash, nome, email, admin FROM utente LIMIT ?, ?");
-            ps.setInt(1, offset);
-            ps.setInt(2, limit);
+                    .prepareStatement("SELECT id, username, passwordhash, nome, email, admin FROM utente");
             ArrayList<Utente> utenti = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -95,6 +93,27 @@ public class UtenteDAO {
             throw new RuntimeException(e);
         }
     }
+    public Utente doRetrieveById(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, username, passwordhash, nome, email, admin FROM utente WHERE id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Utente p = new Utente();
+                p.setId(rs.getInt(1));
+                p.setUsername(rs.getString(2));
+                p.setPasswordhash(rs.getString(3));
+                p.setNome(rs.getString(4));
+                p.setEmail(rs.getString(5));
+                p.setAdmin(rs.getBoolean(6));
+                return p;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void doSave(Utente utente) {
         try (Connection con = ConPool.getConnection()) {
@@ -127,6 +146,18 @@ public class UtenteDAO {
             ps.setInt(5, utente.getId());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("Update error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void doDelete(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "DELETE from utente WHERE id=?");
+            ps.setInt(1, id);
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("Delete error.");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

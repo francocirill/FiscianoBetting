@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @WebServlet("/ScommettiSchedina")
 public class ScommettiSchedinaServlet extends HttpServlet {
@@ -57,6 +59,14 @@ public class ScommettiSchedinaServlet extends HttpServlet {
                 }
                 Utente u = (Utente) session.getAttribute("utente");
                 SchedinaGiocata sched = new SchedinaGiocata();
+
+                //data e ora
+                Date oggi = new Date(); // Data di oggi
+                SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd"); // Qui decido il formato di visualizzazione della data
+                SimpleDateFormat ora = new SimpleDateFormat("HH:mm:ss"); // Qui decido il formato di visualizzazione dell'ora
+
+                sched.setData(data.format(oggi));
+                sched.setOra(ora.format(oggi));
 
                 sched.setImporto(importo);
                 sched.setVincita(Math.floor(importo * totquote*100.0)/100.0);

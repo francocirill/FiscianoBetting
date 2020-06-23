@@ -8,12 +8,14 @@ public class SchedinaGiocataDAO {
     public void doSave(SchedinaGiocata schedina) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO schedinagiocata(testo,importo,vincita,idutente) VALUES(?,?,?,?)",
+                    "INSERT INTO schedinagiocata(testo,data,ora,importo,vincita,idutente) VALUES(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, schedina.getTesto());
-            ps.setInt(2, schedina.getImporto());
-            ps.setDouble(3, schedina.getVincita());
-            ps.setInt(4, schedina.getIdutente());
+            ps.setString(2,schedina.getData());
+            ps.setString(3,schedina.getOra());
+            ps.setInt(4, schedina.getImporto());
+            ps.setDouble(5, schedina.getVincita());
+            ps.setInt(6, schedina.getIdutente());
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
@@ -29,7 +31,7 @@ public class SchedinaGiocataDAO {
         ArrayList<SchedinaGiocata> a=new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT idschedinagiocata,testo,importo,vincita,idutente FROM schedinagiocata WHERE idutente=?");
+                    con.prepareStatement("SELECT idschedinagiocata,testo,data,ora,importo,vincita,idutente FROM schedinagiocata WHERE idutente=?");
             ps.setInt(1, idutente);
             ResultSet rs = ps.executeQuery();
 
@@ -37,9 +39,35 @@ public class SchedinaGiocataDAO {
                 SchedinaGiocata s = new SchedinaGiocata();
                 s.setId(rs.getInt(1));
                 s.setTesto(rs.getString(2));
-                s.setImporto(rs.getInt(3));
-                s.setVincita(rs.getDouble(4));
-                s.setIdutente(rs.getInt(5));
+                s.setData(rs.getString(3));
+                s.setOra(rs.getString(4));
+                s.setImporto(rs.getInt(5));
+                s.setVincita(rs.getDouble(6));
+                s.setIdutente(rs.getInt(7));
+                a.add(s);
+            }
+            return a;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public ArrayList<SchedinaGiocata> doRetrieveAll() {
+
+        ArrayList<SchedinaGiocata> a=new ArrayList<>();
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT idschedinagiocata,testo,data,ora,importo,vincita,idutente FROM schedinagiocata");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                SchedinaGiocata s = new SchedinaGiocata();
+                s.setId(rs.getInt(1));
+                s.setTesto(rs.getString(2));
+                s.setData(rs.getString(3));
+                s.setOra(rs.getString(4));
+                s.setImporto(rs.getInt(5));
+                s.setVincita(rs.getDouble(6));
+                s.setIdutente(rs.getInt(7));
                 a.add(s);
             }
             return a;

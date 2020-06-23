@@ -9,8 +9,8 @@
 
 <footer>
     <h2>Segui i creatori sulle loro pagine social</h2>
-    <p>Il malese</p>
-    <p>Franklean</p>
+    <p>Franco</p>
+    <p>Domenico</p>
 </footer>
 
 
