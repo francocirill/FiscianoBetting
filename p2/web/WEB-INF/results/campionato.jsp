@@ -24,18 +24,6 @@
         <h1>${campionato.nome}</h1>
         <p>${campionato.descrizione}</p>
         <h2>Eventi </h2>
-        <%/*
-        <c:forEach items="${partite}" var="partita">
-        <form action="carrello" method="post">
-                ${partita.idsquadra1},${partita.idsquadra2},${partita.data},${partita.ora},
-                ${partita.quota1}
-            <input type="submit" name="Quota1" value="Quota1">
-                ${partita.quota2}
-            <input type="submit" name="Quota2" value="Quota2">
-                ${partita.quota3}
-            <input type="submit" name="Quota3" value="Quota3">
-            <input type="hidden" value="${partita.id}">
-            </c:forEach>*/%>
         <table id="partite">
             <tr>
                 <th>Squadra1</th>

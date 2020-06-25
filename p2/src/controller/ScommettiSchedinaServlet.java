@@ -1,9 +1,6 @@
 package controller;
 
-import model.SchedinaGiocata;
-import model.SchedinaGiocataDAO;
-import model.Scommessa;
-import model.Utente;
+import model.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,8 +34,14 @@ public class ScommettiSchedinaServlet extends HttpServlet {
             double totquote = 1;
             String testo = "";
             if (schedina != null && schedina.size() > 0 && importo >= 2) {
-
+                PartitaDAO partitaDAO=new PartitaDAO();
                 for (Scommessa s1 : schedina) {
+                    //se la partita non è presente nel database lancia eccezione
+                    Partita p=partitaDAO.doRetrieveById(s1.getP().getId());
+                    if(p==null) {
+                        throw new MyServletException("Una partita non è piu disponibile " + s1.getP().getIdsquadra1() + " " + s1.getP().getIdsquadra2());
+                    }
+
                     testo += s1.getP().getIdsquadra1() + "  " + s1.getP().getIdsquadra2() + "  ";
                     switch (s1.getEsito()) {
                         case "1":

@@ -37,9 +37,8 @@ public class PartitaDAO {
                     con.prepareStatement("SELECT id,data,ora,idsquadra1,idsquadra2,quota1,quota2,quota3 FROM Partita WHERE id=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            Partita p = new Partita();
+            Partita p=new Partita();
             if (rs.next()) {
-
                 p.setId(rs.getInt(1));
                 p.setId(rs.getInt(1));
                 p.setData(rs.getString(2));
@@ -49,9 +48,9 @@ public class PartitaDAO {
                 p.setQuota1(rs.getDouble(6));
                 p.setQuota2(rs.getDouble(7));
                 p.setQuota3(rs.getDouble(8));
-
+                return p;
             }
-            return p;
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
