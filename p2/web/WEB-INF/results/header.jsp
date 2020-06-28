@@ -7,9 +7,10 @@
     <link rel="stylesheet" type="text/css" href="./css/pg.css?ts=<?=time()?>&quot"> <!--altrimenti non si aggiorna -->
     <link rel="stylesheet" type="text/css" href="./css/elementi.css?ts=<?=time()?>&quot">
     <link rel="stylesheet" type="text/css" href="./css/partite.css?ts=<?=time()?>&quot">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="./css/responsive.css?ts=<?=time()?>&quot">
     <script src="js/responsive.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
 </head>
 <body>
 <header>
@@ -30,7 +31,6 @@
     <a href="SchedinaBott">Schedina</a>
     <div class="dropdown">
         <button class="dropbtn">Classifiche
-            <!--<i class="fa fa-caret-down"></i>-->
         </button>
             <div class="dropdown-content">
                 <c:forEach items="${campionati}" var="campionato">
@@ -38,8 +38,10 @@
                 </c:forEach>
             </div>
     </div>
-    <a href="RegistrazioneForm">Registrati</a>
-    <a href="#">Chi siamo</a>
+    <c:if test="${utente==null}">
+        <a href="RegistrazioneForm">Registrati</a>
+    </c:if>
+    <a href="ChiSiamo">Chi siamo</a>
     <div class="dropdown">
         <button class="dropbtn">Area Personale
             <!--<i class="fa fa-caret-down"></i>-->

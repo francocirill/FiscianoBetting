@@ -27,7 +27,7 @@
                 <input type="text" name="username" oninput="validaUsername()" value="${utente.username}"><br>
                 <label>Nome (solo lettere e spazi)</label><br>
                 <input type="text" name="nome" oninput="validaNome()" value="${utente.nome}"><br>
-                <label>Email (<b>TODO:</b> diversa da quella di utenti esistenti)</label><br>
+                <label>Email ( diversa da quella di utenti esistenti)</label><br>
                 <input type="text" name="email" oninput="validaEmail()"  value="${utente.email}"><br>
                 <label>Password (almeno 8 caratteri, deve contenere: una lettera maiuscola, una minuscola, un numero)</label><br>
                 <input type="password" name="password" oninput="validaPassword()"><br>

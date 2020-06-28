@@ -2,13 +2,13 @@
   box-sizing: border-box;
 }
 
-/* Style the body */
+
 body {
   font-family: Arial;
   margin: 0;
 }
 
-/* Header/logo Title */
+
 header {
   padding-top: 30px;
   padding-bottom: 90px;
@@ -27,35 +27,33 @@ header {
   display: block;
 }
 
-/* Change color on hover */
+
 .side a:hover {
   background-color: #ddd;
   color: black;
 }
 
-/* Column container */
+
 .row {  
   display: flex;
   flex-wrap: wrap;
 }
 
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
+
 .side {
-  flex: 30%;
+  flex: 10%;
   background-color: #f1f1f1;
   padding: 20px;
   min-height: 1000px;
 }
 
-/* Main column */
+
 .main {
   flex: 70%;
   background-color: white;
   padding: 20px;
 }
 
-/* Footer */
 footer {
   padding: 20px;
   text-align: left;
@@ -70,8 +68,8 @@ div.log{
   font-weight: bold;
 }
 
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 760px) {
+
+@media screen and (max-width: 830px) {
   .row {
     flex-direction: column;
   }

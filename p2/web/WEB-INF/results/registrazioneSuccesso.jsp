@@ -14,7 +14,12 @@
     </div>
     <div class="main">
         <section>
-            <h2>Registrazione avvenuta con successo.</h2>
+            <c:choose>
+            <c:when test="${notifica!=null}">
+                <h2>${notifica}</h2>
+            </c:when>
+            <c:otherwise><h2>Registrazione avvenuta con successo.</h2></c:otherwise>
+            </c:choose>
         </section>
     </div>
 </div>

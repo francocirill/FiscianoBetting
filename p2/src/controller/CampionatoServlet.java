@@ -28,39 +28,6 @@ public class CampionatoServlet extends HttpServlet {
         List<Partita> a=partitaDAO.doRetrieveByCampionato(campionato);
         request.setAttribute("partite",a);
 
-        /*
-        String campionato=request.getParameter("campionato");
-        String address="index.jsp";
-        switch (campionato)
-        {
-            case "SerieA":
-                request.setAttribute("lega",campionato);
-                break;
-            case "SerieB":
-                request.setAttribute("lega",campionato);
-                break;
-            case "PremierLeague":
-                request.setAttribute("lega",campionato);
-                break;
-            case "LaLiga":
-                request.setAttribute("lega",campionato);
-                break;
-            case "Bundeliga":
-                request.setAttribute("lega",campionato);
-                break;
-            case "Ligue1":
-                request.setAttribute("lega",campionato);
-                break;
-            case "Eredivise":
-                request.setAttribute("lega",campionato);
-                break;
-            case "tutte":
-                request.removeAttribute("lega");
-                break;
-            default:
-                address="errore.jsp";
-                break;
-        }*/
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher(address);
         dispatcher.forward(request, response);

@@ -1,5 +1,5 @@
 package model;
-
+//forse
 public class Schedina {
     private int id,idutente,importo;
 

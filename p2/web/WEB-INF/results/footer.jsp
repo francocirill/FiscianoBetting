@@ -9,8 +9,8 @@
 
 <footer>
     <h2>Segui i creatori sulle loro pagine social</h2>
-    <p>Franco</p>
-    <p>Domenico</p>
+    <p>Franco Cirillo</p>
+    <p>Domenico D'Alessandro</p>
 </footer>
 
 

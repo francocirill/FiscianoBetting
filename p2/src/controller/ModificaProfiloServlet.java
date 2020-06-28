@@ -60,6 +60,7 @@ public class ModificaProfiloServlet extends HttpServlet {
         utenteDAO.doUpdate(utente);
         request.getSession().setAttribute("utente", utente);
 
+        request.setAttribute("notifica","Modifica avvenuta con successo");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/results/registrazioneSuccesso.jsp");
         requestDispatcher.forward(request, response);
     }
